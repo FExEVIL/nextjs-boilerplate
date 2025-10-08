@@ -22,37 +22,37 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-gray-900 font-light">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png.jpeg" 
-                alt="EllingtonHart Capital Logo" 
-                width={28} 
-                height={28}
-                className="object-contain"
-              />
-              <div className="text-2xl font-normal tracking-tight">
-                EllingtonhartCapital
-              </div>
-            </div>
-            <div className="hidden md:flex items-center space-x-12">
-              <a href="#companies" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-normal">Companies</a>
-              <a href="#team" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-normal">Team</a>
-              <a href="#insights" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-normal">Insights</a>
-              <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-normal">Contact</a>
-              <button 
-                onClick={() => setShowLoginModal(true)}
-                className="text-sm font-medium tracking-wide uppercase border border-gray-900 px-6 py-2 rounded-sm hover:bg-gray-900 hover:text-white transition-all"
-              >
-                Client Login
-              </button>
-            </div>
-          </div>
+     {/* Dashboard Navigation - Black Header with White Text */}
+<nav className="border-b border-gray-800 sticky top-0 bg-black z-50">
+  <div className="max-w-7xl mx-auto px-8">
+    <div className="flex justify-between items-center h-20">
+      <div className="flex items-center space-x-3">
+        <Image 
+          src="/logo.png.jpeg" 
+          alt="EllingtonHart Capital Logo" 
+          width={80} 
+          height={80}
+          className="object-contain"
+        />
+        <div className="text-2xl font-normal tracking-tight text-white">
+          EllingtonhartCapital
         </div>
-      </nav>
+      </div>
+      <div className="flex items-center space-x-8">
+        <a href="#overview" className="text-gray-300 hover:text-white text-sm">Overview</a>
+        <a href="#markets" className="text-gray-300 hover:text-white text-sm">Markets</a>
+        <a href="#derivatives" className="text-gray-300 hover:text-white text-sm">Derivatives</a>
+        <a href="#news" className="text-gray-300 hover:text-white text-sm">News</a>
+        <button 
+          onClick={() => setShowLoginModal(true)}
+          className="text-sm font-medium uppercase border border-white text-white px-6 py-2 rounded-sm hover:bg-white hover:text-black transition-all"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
 
       {/* Login Modal */}
       {showLoginModal && (
@@ -62,7 +62,7 @@ export default function Home() {
               onClick={() => setShowLoginModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 text-2xl"
             >
-              ×
+              Ã—
             </button>
             <h2 className="text-3xl font-light mb-2 tracking-tight">Client Login</h2>
             <p className="text-gray-600 mb-8 text-sm">Access your morning trading data dashboard</p>
@@ -87,7 +87,7 @@ export default function Home() {
                   value={credentials.password}
                   onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                   className="w-full border border-gray-300 px-4 py-3 rounded-sm focus:outline-none focus:border-gray-900 transition-colors"
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   required
                 />
               </div>
@@ -186,7 +186,7 @@ export default function Home() {
                 <div className="mb-8">
                   <h3 className="text-3xl font-light mb-6">Financial Infrastructure</h3>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                    Reimagining the rails of global finance—from payments and lending 
+                    Reimagining the rails of global financeâ€”from payments and lending 
                     to wealth management and institutional services.
                   </p>
                 </div>
@@ -196,7 +196,7 @@ export default function Home() {
                 <div className="mb-8">
                   <h3 className="text-3xl font-light mb-6">Enterprise Solutions</h3>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                    Building the tools that power the next generation of business—
+                    Building the tools that power the next generation of businessâ€”
                     automation, intelligence, and seamless operations.
                   </p>
                 </div>
@@ -393,7 +393,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="text-xs text-emerald-200">
-                © 2025 Ellington Hart Capital
+                Â© 2025 Ellington Hart Capital
               </div>
             </div>
           </div>
@@ -415,37 +415,37 @@ function TradingDashboard({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Dashboard Navigation */}
-      <nav className="border-b border-gray-100 sticky top-0 bg-white z-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png.jpeg" 
-                alt="EllingtonHart Capital Logo" 
-                width={28} 
-                height={28}
-                className="object-contain"
-              />
-              <div className="text-2xl font-normal tracking-tight">
-                EllingtonhartCapital
-              </div>
-            </div>
-            <div className="flex items-center space-x-8">
-              <a href="#overview" className="text-gray-600 hover:text-gray-900 text-sm">Overview</a>
-              <a href="#markets" className="text-gray-600 hover:text-gray-900 text-sm">Markets</a>
-              <a href="#derivatives" className="text-gray-600 hover:text-gray-900 text-sm">Derivatives</a>
-              <a href="#news" className="text-gray-600 hover:text-gray-900 text-sm">News</a>
-              <button 
-                onClick={onLogout}
-                className="text-sm font-medium uppercase border border-gray-900 px-6 py-2 rounded-sm hover:bg-gray-900 hover:text-white transition-all"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
+{/* Dashboard Navigation - Black Header with White Text */}
+<nav className="border-b border-gray-800 sticky top-0 bg-black z-50">
+  <div className="max-w-7xl mx-auto px-8">
+    <div className="flex justify-between items-center h-20">
+      <div className="flex items-center space-x-3">
+        <Image 
+          src="/logo.png.jpeg" 
+          alt="EllingtonHart Capital Logo" 
+          width={80} 
+          height={80}
+          className="object-contain"
+        />
+        <div className="text-2xl font-normal tracking-tight text-white">
+          EllingtonhartCapital
         </div>
-      </nav>
+      </div>
+      <div className="flex items-center space-x-8">
+        <a href="#overview" className="text-gray-300 hover:text-white text-sm">Overview</a>
+        <a href="#markets" className="text-gray-300 hover:text-white text-sm">Markets</a>
+        <a href="#derivatives" className="text-gray-300 hover:text-white text-sm">Derivatives</a>
+        <a href="#news" className="text-gray-300 hover:text-white text-sm">News</a>
+        <button 
+          onClick={onLogout}
+          className="text-sm font-medium uppercase border border-white text-white px-6 py-2 rounded-sm hover:bg-white hover:text-black transition-all"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
 
       {/* Hero */}
       <section className="pt-20 pb-16 px-8">
@@ -688,10 +688,10 @@ function TradingDashboard({ onLogout }: { onLogout: () => void }) {
               </thead>
               <tbody>
                 {[
-                  { stock: 'Reliance', volume: '8.45', delivery: '78.5%', spike: '↑ 2.8x', change: '+1.24%' },
-                  { stock: 'TCS', volume: '5.67', delivery: '82.3%', spike: '↑ 3.1x', change: '+3.24%' },
-                  { stock: 'HDFC Bank', volume: '12.34', delivery: '71.8%', spike: '↑ 2.5x', change: '+2.45%' },
-                  { stock: 'Bharti Airtel', volume: '6.89', delivery: '75.6%', spike: '↑ 2.2x', change: '+0.87%' }
+                  { stock: 'Reliance', volume: '8.45', delivery: '78.5%', spike: 'â†‘ 2.8x', change: '+1.24%' },
+                  { stock: 'TCS', volume: '5.67', delivery: '82.3%', spike: 'â†‘ 3.1x', change: '+3.24%' },
+                  { stock: 'HDFC Bank', volume: '12.34', delivery: '71.8%', spike: 'â†‘ 2.5x', change: '+2.45%' },
+                  { stock: 'Bharti Airtel', volume: '6.89', delivery: '75.6%', spike: 'â†‘ 2.2x', change: '+0.87%' }
                 ].map((row, i) => (
                   <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="p-4 text-black font-medium">{row.stock}</td>
@@ -719,7 +719,7 @@ function TradingDashboard({ onLogout }: { onLogout: () => void }) {
                   <th className="text-left p-4 text-xs uppercase tracking-widest text-black font-medium">Client Name</th>
                   <th className="text-center p-4 text-xs uppercase tracking-widest text-black font-medium">Buy/Sell</th>
                   <th className="text-right p-4 text-xs uppercase tracking-widest text-black font-medium">Quantity (Mn)</th>
-                  <th className="text-right p-4 text-xs uppercase tracking-widest text-black font-medium">Price (₹)</th>
+                  <th className="text-right p-4 text-xs uppercase tracking-widest text-black font-medium">Price (â‚¹)</th>
                 </tr>
               </thead>
               <tbody>
@@ -865,7 +865,7 @@ function TradingDashboard({ onLogout }: { onLogout: () => void }) {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-emerald-500 text-center text-sm text-emerald-200">
-            © 2025 Ellington Hart Capital. All rights reserved.
+            Â© 2025 Ellington Hart Capital. All rights reserved.
           </div>
         </div>
       </footer>
