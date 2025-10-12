@@ -512,7 +512,7 @@ function HomePage({
 }
 
 // ORION Landing Page Component
-function OrionLandingPage({ onLogout }) {
+function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   
   const currentDate = new Date().toLocaleString('en-US', {
