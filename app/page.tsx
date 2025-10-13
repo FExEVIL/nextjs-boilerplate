@@ -8,7 +8,7 @@ export default function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     if (credentials.email && credentials.password) {
       setShowLoginModal(false);
@@ -17,8 +17,11 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    setCurrentPage('home');
-    setCredentials({ email: '', password: '' });
+    // Use setTimeout to defer state updates and prevent blocking
+    setTimeout(() => {
+      setCurrentPage('home');
+      setCredentials({ email: '', password: '' });
+    }, 0);
   };
 
   const navigateToOrion = () => {
@@ -45,15 +48,6 @@ export default function App() {
 }
 
 // Homepage Component
-type HomePageProps = {
-  showLoginModal: boolean;
-  setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
-  credentials: { email: string; password: string };
-  setCredentials: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>;
-  handleLogin: (e: React.FormEvent) => void;
-  navigateToOrion: () => void;
-};
-
 function HomePage({
   showLoginModal,
   setShowLoginModal,
@@ -61,7 +55,7 @@ function HomePage({
   setCredentials,
   handleLogin,
   navigateToOrion
-}: HomePageProps) {
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -501,7 +495,7 @@ function HomePage({
                 </div>
               </div>
               <div className="text-xs text-emerald-200">
-                © 2025 Ellington Hart Capital
+                © 2025 ELLINGTONHART CAPITAL
               </div>
             </div>
           </div>
@@ -512,8 +506,9 @@ function HomePage({
 }
 
 // ORION Landing Page Component
-function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
+function OrionLandingPage({ onLogout }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const currentDate = new Date().toLocaleString('en-US', {
     weekday: 'long',
@@ -540,11 +535,11 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
               </svg>
               <div>
                 <div className="text-xl font-bold text-[#0A1F44]">ORION</div>
-                <div className="text-[8px] text-gray-500 -mt-0.5">Dashboard</div>
+                <div className="text-[8px] text-gray-500 -mt-0.5">ELLINGTONHART CAPITAL</div>
               </div>
             </div>
             
-            <div className="flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-6">
               <a href="#markets" className="text-gray-600 hover:text-[#0A1F44] text-sm transition-colors">Markets</a>
               <a href="#derivatives" className="text-gray-600 hover:text-[#0A1F44] text-sm transition-colors">Derivatives</a>
               <a href="#news" className="text-gray-600 hover:text-[#0A1F44] text-sm transition-colors">News</a>
@@ -555,7 +550,38 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
                 Logout
               </button>
             </div>
+
+            <div className="md:hidden flex items-center">
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-[#0A1F44] p-2"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
+
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200">
+              <div className="flex flex-col space-y-4">
+                <a href="#markets" className="text-gray-600 hover:text-[#0A1F44] text-sm py-2" onClick={() => setMobileMenuOpen(false)}>Markets</a>
+                <a href="#derivatives" className="text-gray-600 hover:text-[#0A1F44] text-sm py-2" onClick={() => setMobileMenuOpen(false)}>Derivatives</a>
+                <a href="#news" className="text-gray-600 hover:text-[#0A1F44] text-sm py-2" onClick={() => setMobileMenuOpen(false)}>News</a>
+                <button onClick={() => { onLogout(); setMobileMenuOpen(false); }} className="text-sm font-medium uppercase border-2 border-[#0A1F44] text-[#0A1F44] px-4 py-3 rounded-sm hover:bg-[#0A1F44] hover:text-white transition-all text-center">
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -954,102 +980,9 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
         </div>
       </section>
 
-      {/* Compliance & Disclaimers */}
-      <section id="compliance" className="px-4 sm:px-8 pb-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto py-12">
-          <div className="bg-white border-2 border-gray-200 rounded-sm p-8">
-            <h2 className="text-3xl font-extralight mb-8 tracking-tight text-[#0A1F44]">Important Disclaimers</h2>
-            
-            <div className="space-y-6 text-sm text-gray-700 leading-relaxed">
-              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded">
-                <h3 className="font-bold text-amber-900 mb-3 text-base">Educational Purpose Only</h3>
-                <p className="text-amber-900">
-                  ORION is designed solely for educational and informational purposes. The data, analytics, and insights provided are meant to enhance market awareness and financial literacy. <strong>This platform does not constitute investment advice, recommendations, or solicitations to buy or sell any securities.</strong>
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-bold mb-3 text-[#0A1F44] text-base">No Investment Advisory Services</h3>
-                <p>
-                  Ellington Hart Capital and ORION do not provide investment advisory services and are not registered with the Securities and Exchange Board of India (SEBI) as investment advisors. Users must independently verify all information and consult SEBI-registered financial advisors before making investment decisions.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-bold mb-3 text-[#0A1F44] text-base">Market Risk Disclosure</h3>
-                <p>
-                  Market data reflects historical observations and current snapshots; past patterns do not predict future performance. Users are solely responsible for their investment decisions and should consult SEBI-registered financial advisors before making any investment choices.
-                </p>
-                <p className="mt-2">
-                  Ellington Hart Capital does not act as an investment advisor and is not regulated by SEBI for advisory services. Data may be delayed, incomplete, or subject to errors; verify all information independently.
-                </p>
-                <p className="mt-2">
-                  <strong>By using ORION</strong>, you acknowledge that all investment decisions carry risk and that you use this information at your own discretion.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-gray-200 grid sm:grid-cols-3 gap-6 text-sm">
-              <div>
-                <h4 className="font-medium mb-2 text-[#0A1F44]">Data Sources</h4>
-                <p className="text-gray-600">NSE, BSE, NSDL, SEBI disclosures</p>
-              </div>
-              <div>
-                <h4 className="font-medium mb-2 text-[#0A1F44]">Update Frequency</h4>
-                <p className="text-gray-600">Real-time to T+1 depending on source</p>
-              </div>
-              <div>
-                <h4 className="font-medium mb-2 text-[#0A1F44]">Security</h4>
-                <p className="text-gray-600">256-bit encryption, ISO 27001</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center space-x-6">
-            <a href="#" className="text-sm text-gray-600 hover:text-[#0A1F44] underline transition-colors">Terms of Service</a>
-            <a href="#" className="text-sm text-gray-600 hover:text-[#0A1F44] underline transition-colors">Privacy Policy</a>
-            <a href="#" className="text-sm text-gray-600 hover:text-[#0A1F44] underline transition-colors">Data Protection</a>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact" className="py-20 px-4 sm:px-8 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-6xl font-extralight mb-8 tracking-tighter text-[#0A1F44]">
-            Navigate with ORION
-          </h2>
-          <p className="text-xl text-gray-600 font-light mb-12 max-w-3xl mx-auto">
-            Ready to see what others miss? Request institutional access to ORION and experience precision market intelligence.
-          </p>
-          
-          <div className="space-y-8">
-            <a 
-              href="mailto:orion@ellingtonhart.com" 
-              className="inline-block text-lg font-light tracking-wide border-b-2 border-[#0A1F44] pb-2 hover:border-emerald-600 hover:text-emerald-600 transition-all"
-            >
-              orion@ellingtonhart.com
-            </a>
-            <div className="text-gray-600">
-              <p className="mb-2">Mumbai Office</p>
-              <p className="text-sm">+91 22 2345 6789</p>
-            </div>
-            <div className="pt-4">
-              <button 
-                onClick={() => setShowLoginModal(true)}
-                className="px-8 py-4 bg-gradient-to-r from-[#0A1F44] to-[#1E293B] text-white rounded-sm hover:shadow-xl transition-all text-sm font-medium uppercase tracking-wide"
-              >
-                Request Demo Access
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-gradient-to-r from-[#0A1F44] to-[#1E293B] text-white py-16 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Logo */}
           <div className="flex items-center justify-center mb-12">
             <svg className="w-10 h-10 mr-3" viewBox="0 0 40 40" fill="none">
               <circle cx="20" cy="15" r="2" fill="white"/>
@@ -1060,7 +993,7 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
             </svg>
             <div>
               <div className="text-3xl font-bold">ORION</div>
-              <div className="text-xs text-emerald-300">by Ellington Hart Capital</div>
+              <div className="text-xs text-emerald-300">by ELLINGTONHART CAPITAL</div>
             </div>
           </div>
 
@@ -1068,20 +1001,18 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
             <div>
               <h4 className="text-sm font-medium mb-6 uppercase tracking-wider text-emerald-300">Company</h4>
               <ul className="space-y-3 text-sm">
-                <li><a href="#about" className="text-emerald-100 hover:text-white transition-colors">About ORION</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">About ORION</a></li>
                 <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Our Team</a></li>
                 <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Press Kit</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-medium mb-6 uppercase tracking-wider text-emerald-300">Products</h4>
               <ul className="space-y-3 text-sm">
-                <li><a href="#products" className="text-emerald-100 hover:text-white transition-colors">ORION Core</a></li>
-                <li><a href="#products" className="text-emerald-100 hover:text-white transition-colors">ORION Pro</a></li>
-                <li><a href="#products" className="text-emerald-100 hover:text-white transition-colors">ORION Enterprise</a></li>
-                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">ORION API</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">ORION Core</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">ORION Pro</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">ORION Enterprise</a></li>
               </ul>
             </div>
 
@@ -1089,41 +1020,23 @@ function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
               <h4 className="text-sm font-medium mb-6 uppercase tracking-wider text-emerald-300">Resources</h4>
               <ul className="space-y-3 text-sm">
                 <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">API Reference</a></li>
                 <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Support Center</a></li>
-                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Status Page</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-medium mb-6 uppercase tracking-wider text-emerald-300">Legal</h4>
               <ul className="space-y-3 text-sm">
-                <li><a href="#compliance" className="text-emerald-100 hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#compliance" className="text-emerald-100 hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#compliance" className="text-emerald-100 hover:text-white transition-colors">Disclaimers</a></li>
-                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Security</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="text-emerald-100 hover:text-white transition-colors">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-emerald-800">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-sm text-emerald-100">
-                © 2025 Ellington Hart Capital. ORION™ is a registered trademark. All rights reserved.
-              </p>
-              <div className="flex gap-6">
-                <a href="#" className="text-emerald-100 hover:text-white transition-colors" aria-label="LinkedIn">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-emerald-100 hover:text-white transition-colors" aria-label="Twitter">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
+          <div className="pt-8 border-t border-emerald-800 text-center">
+            <p className="text-sm text-emerald-100">
+              © 2025 ELLINGTONHART CAPITAL. ORION™ is a registered trademark. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
