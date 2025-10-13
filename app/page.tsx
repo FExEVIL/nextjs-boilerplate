@@ -8,7 +8,7 @@ export default function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (credentials.email && credentials.password) {
       setShowLoginModal(false);
@@ -48,6 +48,15 @@ export default function App() {
 }
 
 // Homepage Component
+type HomePageProps = {
+  showLoginModal: boolean;
+  setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
+  credentials: { email: string; password: string };
+  setCredentials: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>;
+  handleLogin: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  navigateToOrion: () => void;
+};
+
 function HomePage({
   showLoginModal,
   setShowLoginModal,
@@ -55,7 +64,7 @@ function HomePage({
   setCredentials,
   handleLogin,
   navigateToOrion
-}) {
+}: HomePageProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -506,7 +515,7 @@ function HomePage({
 }
 
 // ORION Landing Page Component
-function OrionLandingPage({ onLogout }) {
+function OrionLandingPage({ onLogout }: { onLogout: () => void }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
