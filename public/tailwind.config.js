@@ -7,10 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      ffontFamily: {
-  'lora': ['var(--font-lora)', 'serif'],
-},
-
+      fontFamily: {
+        lora: ['var(--font-lora)', 'serif'],
+        spectral: ['var(--font-spectral)', 'serif'], // add your spectral font here
+      },
+    },
   },
   plugins: [],
 }
