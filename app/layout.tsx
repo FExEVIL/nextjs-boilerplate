@@ -1,17 +1,9 @@
 import './globals.css';
-import { Spectral } from 'next/font/google';
 import { Metadata } from 'next';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ToastContainer } from '@/components/ui/Toast';
-
-const spectral = Spectral({
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  variable: '--font-spectral',
-});
 
 export const metadata: Metadata = {
   title: 'ORION - Financial Dashboard & Market Intelligence',
@@ -22,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={spectral.variable}>
-      <body className="font-spectral">
+    <html lang="en">
+      <body className="font-sans">
         <ErrorBoundary>
           <AuthProvider>
             <ToastProvider>

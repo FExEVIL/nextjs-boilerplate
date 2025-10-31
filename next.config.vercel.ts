@@ -1,15 +1,28 @@
 import type { NextConfig } from 'next';
 
+/**
+ * Next.js configuration for Vercel deployment
+ * Use this configuration when deploying to Vercel or other platforms that support SSR
+ *
+ * To use this configuration:
+ * 1. Rename this file to next.config.ts
+ * 2. Rename the current next.config.ts to next.config.static.ts
+ */
+
 const nextConfig: NextConfig = {
   // Enable React Strict Mode for better development experience
   reactStrictMode: true,
 
-  // Static export for GitHub Pages (comment out for Vercel/dynamic hosting)
-  output: 'export',
-
-  // Configure image optimization for static export
+  // Configure image domains for optimization (Vercel supports dynamic optimization)
   images: {
-    unoptimized: true, // Required for static export
+    domains: ['localhost'],
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
 
   // Production optimizations
@@ -17,16 +30,6 @@ const nextConfig: NextConfig = {
 
   // Disable X-Powered-By header
   poweredByHeader: false,
-
-  // Disable ESLint during builds (run separately with npm run lint)
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
-  // Disable TypeScript errors during builds (run separately with npm run type-check)
-  typescript: {
-    ignoreBuildErrors: true,
-  },
 
   // Environment variables
   env: {
